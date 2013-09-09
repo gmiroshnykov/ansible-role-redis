@@ -1,20 +1,25 @@
 - name: add 'chris lea' PPA for Redis
+  sudo: true
   apt_repository: repo=ppa:chris-lea/redis-server
   register: result
 
 - name: apt-get update
+  sudo: true
   apt: update_cache=yes
   when_changed: $result
 
 - name: install 'redis-server'
+  sudo: true
   apt: pkg=redis-server state=latest
   register: result
 
 - name: disable 'redis-server'
+  sudo: true
   service: name=redis-server enabled=no state=stopped
   when_changed: $result
 
 - name: create redis data dir
+  sudo: true
   file: path={{ redis.options.dir }}
         state=directory
         owner=redis
@@ -22,12 +27,14 @@
         recurse=yes
 
 - name: generate upstart script
+  sudo: true
   template:
     src='upstart.conf.j2'
     dest={{ redis.initfile }}
   notify: restart redis
 
 - name: generate config file
+  sudo: true
   template:
     src='redis.conf.j2'
     owner=redis
