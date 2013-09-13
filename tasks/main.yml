@@ -45,4 +45,4 @@
 - name: remove default redis config
   sudo: true
   file: path=/etc/redis/redis.conf state=absent
-  when: "'{{ redis.conffile }}' != '/etc/redis/redis.conf'"
+  when: redis.conffile != '/etc/redis/redis.conf'
