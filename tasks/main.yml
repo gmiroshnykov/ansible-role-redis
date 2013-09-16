@@ -6,7 +6,7 @@
 - name: apt-get update
   sudo: true
   apt: update_cache=yes
-  when_changed: $result
+  when: result.changed
 
 - name: install 'redis-server'
   sudo: true
@@ -16,7 +16,7 @@
 - name: disable 'redis-server'
   sudo: true
   service: name=redis-server enabled=no state=stopped
-  when_changed: $result
+  when: result.changed
 
 - name: create redis data dir
   sudo: true
