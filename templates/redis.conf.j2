@@ -1,5 +1,33 @@
-{% for k, v in redis.options.iteritems() %}
-{% if v != "" %}
-{{ k }} {{ v }}
+{% if redis_option_daemonize %}
+daemonize {{ redis_option_daemonize }}
 {% endif %}
-{% endfor %}
+{% if redis_option_dir %}
+dir {{ redis_option_dir }}
+{% endif %}
+{% if redis_option_pidfile %}
+pidfile {{ redis_option_pidfile }}
+{% endif %}
+{% if redis_option_loglevel %}
+loglevel {{ redis_option_loglevel }}
+{% endif %}
+{% if redis_option_logfile %}
+logfile {{ redis_option_logfile }}
+{% endif %}
+{% if redis_option_bind %}
+bind {{ redis_option_bind }}
+{% endif %}
+{% if redis_option_port %}
+port {{ redis_option_port }}
+{% endif %}
+{% if redis_option_save %}
+save {{ redis_option_save }}
+{% endif %}
+{% if redis_option_requirepass %}
+requirepass {{ redis_option_requirepass }}
+{% endif %}
+{% if redis_option_masterauth %}
+masterauth {{ redis_option_masterauth }}
+{% endif %}
+{% if redis_option_slaveof %}
+slaveof {{ redis_option_slaveof }}
+{% endif %}

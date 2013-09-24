@@ -1,0 +1,28 @@
+redis:
+  service: redis
+  conffile: /etc/redis/redis.conf
+  initfile: /etc/init/redis.conf
+  options:
+    daemonize: "no"
+    dir: /var/lib/redis
+    pidfile: /var/run/redis/redis.pid
+    loglevel: notice
+    logfile: /var/log/redis/redis.log
+    bind: 0.0.0.0
+    port: 6379
+    save: "60 1000"
+
+redis_service: redis
+redis_conffile: /etc/redis/redis.conf
+redis_initfile: /etc/init/redis.conf
+redis_option_daemonize: "no"
+redis_option_dir: /var/lib/redis
+redis_option_pidfile: /var/run/redis/redis.pid
+redis_option_loglevel: notice
+redis_option_logfile: /var/log/redis/redis.log
+redis_option_bind: 0.0.0.0
+redis_option_port: 6379
+redis_option_save: "60 1000"
+redis_option_requirepass: ""
+redis_option_masterauth: ""
+redis_option_slaveof: ""

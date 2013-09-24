@@ -20,7 +20,7 @@
 
 - name: create redis data dir
   sudo: true
-  file: path={{ redis.options.dir }}
+  file: path={{ redis_option_dir }}
         state=directory
         owner=redis
         group=redis
@@ -30,7 +30,7 @@
   sudo: true
   template:
     src='upstart.conf.j2'
-    dest={{ redis.initfile }}
+    dest={{ redis_initfile }}
   notify: restart redis
 
 - name: generate config file
@@ -39,10 +39,10 @@
     src='redis.conf.j2'
     owner=redis
     group=redis
-    dest={{ redis.conffile }}
+    dest={{ redis_conffile }}
   notify: restart redis
 
 - name: remove default redis config
   sudo: true
   file: path=/etc/redis/redis.conf state=absent
-  when: redis.conffile != '/etc/redis/redis.conf'
+  when: redis_conffile != '/etc/redis/redis.conf'
