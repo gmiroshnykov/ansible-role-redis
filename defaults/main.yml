@@ -1,7 +1,6 @@
 redis:
   service: redis
-  conffile: /etc/redis/redis.conf
-  initfile: /etc/init/redis.conf
+  configPath: /etc/redis/redis.conf
   options:
     daemonize: "no"
     dir: /var/lib/redis

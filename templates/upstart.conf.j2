@@ -7,4 +7,4 @@ respawn limit 10 5
 setuid redis
 setgid redis
 
-exec /usr/bin/redis-server {{ redis.conffile }}
+exec /usr/bin/redis-server {{ redis.configPath }}

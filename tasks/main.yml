@@ -1,12 +1,6 @@
-- name: add 'chris lea' PPA for Redis
+- name: add Redis PPA
   sudo: true
   apt_repository: repo=ppa:chris-lea/redis-server
-  register: result
-
-- name: apt-get update
-  sudo: true
-  apt: update_cache=yes
-  when: result.changed
 
 - name: install 'redis-server'
   sudo: true
@@ -20,29 +14,29 @@
 
 - name: create redis data dir
   sudo: true
-  file: path={{ redis.options.dir }}
-        state=directory
-        owner=redis
-        group=redis
-        recurse=yes
+  file: >
+    path={{ redis.options.dir }}
+    state=directory
+    owner=redis
+    group=redis
 
 - name: generate upstart script
   sudo: true
-  template:
-    src='upstart.conf.j2'
-    dest={{ redis.initfile }}
-  notify: restart redis
+  template: >
+    src=upstart.conf.j2
+    dest=/etc/init/{{ redis.service }}.conf
+  notify: restart {{ redis.service }}
 
 - name: generate config file
   sudo: true
-  template:
-    src='redis.conf.j2'
+  template: >
+    src=redis.conf.j2
     owner=redis
     group=redis
-    dest={{ redis.conffile }}
-  notify: restart redis
+    dest={{ redis.configPath }}
+  notify: restart {{ redis.service }}
 
 - name: remove default redis config
   sudo: true
   file: path=/etc/redis/redis.conf state=absent
-  when: redis.conffile != '/etc/redis/redis.conf'
+  when: redis.configPath != '/etc/redis/redis.conf'
