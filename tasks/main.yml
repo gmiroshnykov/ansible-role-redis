@@ -1,18 +1,18 @@
-- name: add Redis PPA
+- name: add repository
   sudo: true
   apt_repository: repo=ppa:chris-lea/redis-server
 
-- name: install 'redis-server'
+- name: install
   sudo: true
-  apt: pkg=redis-server state=latest
+  apt: pkg=redis-server
   register: result
 
-- name: disable 'redis-server'
+- name: disable default service
   sudo: true
   service: name=redis-server enabled=no state=stopped
   when: result.changed
 
-- name: create redis data dir
+- name: create data dir
   sudo: true
   file: >
     path={{ redis.options.dir }}
